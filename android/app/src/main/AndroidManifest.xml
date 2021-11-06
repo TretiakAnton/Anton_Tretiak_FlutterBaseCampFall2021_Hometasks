@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.base_camp">
+    package="com.example.lecture_2_hometask_starter">
    <application
-        android:label="base_camp"
+        android:label="lecture_2_hometask_starter"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_2_hometask_starter/hash_calculator/heavy_task_performer.dart';
+import 'package:lecture_2_hometask_starter/hash_calculator/main_isolate_task_performer.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MyApp(
+      taskPerformer: MainIsolateTaskPerformer(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({
+    Key? key,
+    required this.taskPerformer,
+  }) : super(key: key);
+
+  final HeavyTaskPerformer taskPerformer;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,26 +25,31 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(
+        title: 'Flutter Demo Home Page',
+        taskPerformer: taskPerformer,
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({
+    Key? key,
+    required this.title,
+    required this.taskPerformer,
+  }) : super(key: key);
 
   final String title;
+  final HeavyTaskPerformer taskPerformer;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {});
-  }
+  String heavyTaskResult = '';
+  bool isPerformingTask = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,23 +58,37 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Heavy task result is equal to: $heavyTaskResult',
+                textAlign: TextAlign.center,
+              ),
+              isPerformingTask
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: () async {
+                        setState(() {
+                          isPerformingTask = true;
+                          heavyTaskResult = '';
+                        });
+
+                        final taskResult =
+                            await widget.taskPerformer.doSomeHeavyWork();
+
+                        setState(() {
+                          isPerformingTask = false;
+                          heavyTaskResult = taskResult;
+                        });
+                      },
+                      child: const Text('Perform Heavy Task'),
+                    ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
