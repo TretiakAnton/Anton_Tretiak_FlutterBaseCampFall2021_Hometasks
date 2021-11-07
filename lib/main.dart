@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lecture_2_hometask_starter/hash_calculator/compute_heavy_task_performer.dart';
 import 'package:lecture_2_hometask_starter/hash_calculator/heavy_task_performer.dart';
 import 'package:lecture_2_hometask_starter/hash_calculator/main_isolate_task_performer.dart';
 
 void main() {
   runApp(
     MyApp(
-      taskPerformer: MainIsolateTaskPerformer(),
+      taskPerformer: ComputeHeavyTaskPerformer(),
     ),
   );
 }
