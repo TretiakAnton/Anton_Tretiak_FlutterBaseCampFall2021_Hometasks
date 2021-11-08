@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 
 class RandomNumberHashCalculator {
-  String calculateRandomNumberHash({required int iterationsCount}) {
+   static String calculateRandomNumberHash(int iterationsCount) {
     String curDigest = '';
     for(int i = 0; i < iterationsCount; ++i) {
       final randomNumber = Random.secure().nextInt(200);

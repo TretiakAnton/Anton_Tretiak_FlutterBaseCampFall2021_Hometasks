@@ -6,6 +6,6 @@ class MainIsolateTaskPerformer implements HeavyTaskPerformer {
   @override
   Future<String> doSomeHeavyWork() async {
     final hashCalculator = RandomNumberHashCalculator();
-    return hashCalculator.calculateRandomNumberHash(iterationsCount: DefaultIterationsCount);
+    return RandomNumberHashCalculator.calculateRandomNumberHash( DefaultIterationsCount);
   }
 }

@@ -1,1 +1,1 @@
-const int DefaultIterationsCount = 60;
+const int DefaultIterationsCount = 60000;
