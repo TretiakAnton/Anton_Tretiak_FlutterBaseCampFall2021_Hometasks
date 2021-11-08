@@ -7,7 +7,7 @@ import 'package:lecture_2_hometask_starter/helpers/random_number_hash_calculator
 
 class SpawnedIsolateTaskPerformer implements HeavyTaskPerformer {
   Isolate? isolate;
-  late Completer _completer;
+   late Completer _completer;
 
   @override
   Future<String> doSomeHeavyWork() async {
@@ -38,7 +38,8 @@ class SpawnedIsolateTaskPerformer implements HeavyTaskPerformer {
     spawneeReceivePort.listen((message) {
       if(message is int){
         final hashCalculator = RandomNumberHashCalculator();
-        spawnerSendPort.send( hashCalculator.calculateRandomNumberHash(iterationsCount: DefaultIterationsCount));
+        Future <String> result =hashCalculator.calculateRandomNumberHash(  iterationsCount: message) as Future<String>;
+        spawnerSendPort.send(result);
       }
     });
   }
