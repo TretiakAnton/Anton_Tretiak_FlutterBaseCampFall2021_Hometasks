@@ -3,9 +3,9 @@ import 'dart:isolate';
 import 'package:lecture_2_hometask_starter/constants.dart';
 
 import 'package:lecture_2_hometask_starter/hash_calculator/heavy_task_performer.dart';
-import 'package:lecture_2_hometask_starter/helpers/random_number_hash_calculator.dart';
+import 'package:lecture_2_hometask_starter/random_number_hash_calculator.dart';
 
-class SpawnedIsolateTaskPerformer implements HeavyTaskPerformer {
+class SpawnedIsolateTaskPerformer extends HeavyTaskPerformer {
   Isolate? isolate;
    late Completer _completer;
 
@@ -32,12 +32,13 @@ class SpawnedIsolateTaskPerformer implements HeavyTaskPerformer {
     return _completer.future as String;
   }
 
+
   static void _establishCommunicationWithSpawner(SendPort spawnerSendPort) {
     final spawneeReceivePort= ReceivePort();
     spawnerSendPort.send(spawneeReceivePort.sendPort);
     spawneeReceivePort.listen((message) {
       if(message is int){
-        spawnerSendPort.send( RandomNumberHashCalculator.calculateRandomNumberHash( message));
+        spawnerSendPort.send( HeavyTaskPerformer.calculateHash(message));
       }
     });
   }

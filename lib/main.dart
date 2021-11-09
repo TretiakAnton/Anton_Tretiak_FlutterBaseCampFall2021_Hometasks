@@ -7,7 +7,7 @@ import 'package:lecture_2_hometask_starter/hash_calculator/spawned_isolate_task_
 void main() {
   runApp(
     MyApp(
-      taskPerformer: SpawnedIsolateTaskPerformer(),
+      taskPerformer: ComputeHeavyTaskPerformer(),
     ),
   );
 }
