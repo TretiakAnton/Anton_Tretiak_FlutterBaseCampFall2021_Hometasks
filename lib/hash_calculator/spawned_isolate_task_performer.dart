@@ -7,7 +7,7 @@ import 'package:lecture_2_hometask_starter/random_number_hash_calculator.dart';
 
 class SpawnedIsolateTaskPerformer extends HeavyTaskPerformer {
   Isolate? isolate;
-   late Completer _completer;
+  late Completer<String> _completer;
 
   @override
   Future<String> doSomeHeavyWork() async {
@@ -17,11 +17,11 @@ class SpawnedIsolateTaskPerformer extends HeavyTaskPerformer {
       isolate = Isolate.spawn(
               _establishCommunicationWithSpawner, spawnerReceivePort.sendPort)
           as Isolate?;
-      
+
       spawnerReceivePort.listen((message) {
-        if(message is SendPort){
+        if (message is SendPort) {
           message.send(DefaultIterationsCount);
-        } else if(message is String){
+        } else if (message is String) {
           _completer.complete(message);
         }
       });
@@ -29,16 +29,15 @@ class SpawnedIsolateTaskPerformer extends HeavyTaskPerformer {
       _completer.completeError(e);
     }
 
-    return _completer.future as String;
+    return _completer.future;
   }
 
-
   static void _establishCommunicationWithSpawner(SendPort spawnerSendPort) {
-    final spawneeReceivePort= ReceivePort();
+    final spawneeReceivePort = ReceivePort();
     spawnerSendPort.send(spawneeReceivePort.sendPort);
     spawneeReceivePort.listen((message) {
-      if(message is int){
-        spawnerSendPort.send( HeavyTaskPerformer.calculateHash(message));
+      if (message is int) {
+        spawnerSendPort.send(HeavyTaskPerformer.calculateHash(message));
       }
     });
   }
