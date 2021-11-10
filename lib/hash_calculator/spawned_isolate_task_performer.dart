@@ -37,7 +37,9 @@ class SpawnedIsolateTaskPerformer extends HeavyTaskPerformer {
     spawnerSendPort.send(spawneeReceivePort.sendPort);
     spawneeReceivePort.listen((message) {
       if (message is int) {
-        spawnerSendPort.send(HeavyTaskPerformer.calculateHash(message));
+        final hashCalculator = RandomNumberHashCalculator();
+        spawnerSendPort.send(
+            hashCalculator.calculateRandomNumberHash(iterationsCount: message));
       }
     });
   }
