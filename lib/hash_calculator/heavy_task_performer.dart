@@ -1,3 +1,5 @@
 abstract class HeavyTaskPerformer {
-  Future<String>doSomeHeavyWork();
+  Future<String> doSomeHeavyWork(int iterationCount);
+
+  void stopDoSomeHeavyWork();
 }
