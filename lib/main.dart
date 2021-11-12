@@ -5,14 +5,14 @@ import 'package:lecture_2_hometask_starter/hash_calculator/main_isolate_task_per
 
 int _iterationCount = 0;
 
-class CounterCubit extends Cubit<int> {
-  CounterCubit() : super(0);
+class CounterCubit extends Cubit<String> {
+  CounterCubit() : super("");
 
   void run(int iterationCount) {
     final task = MainIsolateTaskPerformer();
     String result;
     result = task.doSomeHeavyWork(iterationCount) as String;
-    //emit(state += result!);
+    emit(state = result);
   }
 
   void stop() {
@@ -22,6 +22,12 @@ class CounterCubit extends Cubit<int> {
     emit(state); //how to give result?
   }
 }
+
+/*class HashCalculationPageState (){
+bool isCalculatingHash=0;
+String hashInfoValue='';
+
+}*/
 
 void main() {
   runApp(MyApp());
@@ -124,7 +130,7 @@ class CounterTextWidget extends StatelessWidget {
         SizedBox(
           width: 30,
         ),
-        BlocBuilder<CounterCubit, int>(
+        BlocBuilder<CounterCubit, String>(
           builder: (context, result) => Center(child: Text('$result')),
         ),
       ],
