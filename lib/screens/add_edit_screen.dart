@@ -22,6 +22,8 @@ class AddEditScreen extends StatefulWidget {
 }
 
 class _AddEditScreenState extends State<AddEditScreen> {
+  TextEditingController _taskController = TextEditingController();
+  TextEditingController _noteController = TextEditingController();
   String _task;
   String _note;
 
@@ -30,7 +32,52 @@ class _AddEditScreenState extends State<AddEditScreen> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(title: Text('Add Todo')),
+      body: Center(
+        child: ListView(
+          padding: EdgeInsets.all(10),
+          children: <Widget>[
+            TextField(
+              controller: _taskController,
+              decoration: InputDecoration(
+                hintText: ('What needs to be done?'),
+                //hintStyle: textTheme.headline5,
+              ),
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 19.0,
+              ),
+            ),
+            TextField(
+              controller: _noteController,
+              decoration: InputDecoration(
+                hintText: 'Additional notes...',
+                // hintStyle: textTheme.subtitle1,
+              ),
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12.0,
+              ),
+              minLines: 15,
+              maxLines: 20,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_taskController.text.isEmpty || _noteController.text.isEmpty) {
+            null;
+          } else {
+            _task = _taskController.text;
+            _taskController.clear();
+            _note = _noteController.text;
+            _noteController.clear();
+          }
+        },
+        child: Icon(Icons.add),
+      ),
+    );
   }
 }
