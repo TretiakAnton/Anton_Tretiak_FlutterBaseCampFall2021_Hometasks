@@ -1,0 +1,1 @@
+enum ExtraAction { clearCompleted }
