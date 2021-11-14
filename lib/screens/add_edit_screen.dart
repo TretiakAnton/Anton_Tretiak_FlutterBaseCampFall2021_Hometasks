@@ -71,8 +71,10 @@ class _AddEditScreenState extends State<AddEditScreen> {
             null;
           } else {
             _task = _taskController.text;
+            print('$_task');
             _taskController.clear();
             _note = _noteController.text;
+            print('$_note');
             _noteController.clear();
           }
         },
