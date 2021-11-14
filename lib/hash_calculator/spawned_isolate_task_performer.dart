@@ -13,9 +13,8 @@ class SpawnedIsolateTaskPerformer extends HeavyTaskPerformer {
     _completer = Completer<String>();
     try {
       final spawnerReceivePort = ReceivePort();
-      isolate = Isolate.spawn(
-              _establishCommunicationWithSpawner, spawnerReceivePort.sendPort)
-          as Isolate?;
+      isolate = await Isolate.spawn(
+              _establishCommunicationWithSpawner, spawnerReceivePort.sendPort);
 
       spawnerReceivePort.listen((message) {
         if (message is SendPort) {
