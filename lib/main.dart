@@ -88,29 +88,32 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: CounterTextContainerWidget(),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextField(
-              keyboardType: TextInputType.number,
-              controller: _iterationsController,
-              decoration: InputDecoration(
-                  hintText: 'iterations count', border: OutlineInputBorder()),
-              onSubmitted: _getData),
-          FloatingActionButton(
-              onPressed: () =>
-                  context.read<CounterCubit>().run(_iterationCount),
-              tooltip: 'Run',
-              child: Icon(Icons.add)),
-          FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().stop(),
-            tooltip: 'Stop',
-            child: Icon(Icons.remove),
+      body: Container(
+        padding: EdgeInsets.all(10),
+        child: Center(
+          child: Column(
+            children: [
+              CounterTextContainerWidget(),
+              TextField(
+                  keyboardType: TextInputType.number,
+                  controller: _iterationsController,
+                  decoration: InputDecoration(
+                      hintText: 'iterations count',
+                      border: OutlineInputBorder()),
+                  onSubmitted: _getData),
+              FloatingActionButton(
+                  onPressed: () =>
+                      context.read<CounterCubit>().run(_iterationCount),
+                  tooltip: 'Run',
+                  child: Icon(Icons.add)),
+              FloatingActionButton(
+                onPressed: () => context.read<CounterCubit>().stop(),
+                tooltip: 'Stop',
+                child: Icon(Icons.remove),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -141,16 +144,16 @@ class CounterTextWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(Icons.qr_code_rounded),
+        /*Icon(Icons.qr_code_rounded),
         SizedBox(
           width: 30,
-        ),
+        ),*/
         BlocBuilder<CounterCubit, HashCalculationPageState>(
           builder: (context, state) {
             return Center(
               child: state.isCalculatingHash
                   ? CircularProgressIndicator()
-                  : Text('hash value is: ${state.hashInfoValue}'),
+                  : Text('hash value is: \n ${state.hashInfoValue}'),
             );
           },
         ),
