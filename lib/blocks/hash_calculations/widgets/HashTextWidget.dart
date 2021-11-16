@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../spawned_isolate_task_performer.dart';
+import '../../spawned_isolate_task_performer.dart';
 
 class HashCalculationCubit extends Cubit<HashCalculationPageState> {
   HashCalculationCubit()
@@ -9,13 +9,14 @@ class HashCalculationCubit extends Cubit<HashCalculationPageState> {
 
   final _taskPerfomer = SpawnedIsolateTaskPerformer();
 
-  Future<void> run(int iterationCount) async {
+  Future<void> run(String iterationCount) async {
     String result;
+    int count = int.parse(iterationCount);
     emit(HashCalculationPageState(
       isCalculatingHash: true,
       hashInfoValue: '',
     ));
-    result = await _taskPerfomer.doSomeHeavyWork(iterationCount);
+    result = await _taskPerfomer.doSomeHeavyWork(count);
     emit(HashCalculationPageState(
       isCalculatingHash: false,
       hashInfoValue: result,
