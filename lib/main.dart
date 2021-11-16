@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(
           child: Column(
             children: [
-              CounterTextContainerWidget(),
+              CounterTextWidget(),
               TextField(
                   keyboardType: TextInputType.number,
                   controller: _iterationsController,
@@ -119,45 +119,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class CounterTextContainerWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          'You have pushed the button this many times:',
-          style: TextStyle(color: Colors.red, fontSize: 20),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        CounterTextWidget(),
-      ],
-    );
-  }
-}
-
 class CounterTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        /*Icon(Icons.qr_code_rounded),
-        SizedBox(
-          width: 30,
-        ),*/
-        BlocBuilder<CounterCubit, HashCalculationPageState>(
-          builder: (context, state) {
-            return Center(
-              child: state.isCalculatingHash
-                  ? CircularProgressIndicator()
-                  : Text('hash value is: \n ${state.hashInfoValue}'),
-            );
-          },
-        ),
-      ],
+    return BlocBuilder<CounterCubit, HashCalculationPageState>(
+      builder: (context, state) {
+        return Center(
+          child: state.isCalculatingHash
+              ? CircularProgressIndicator()
+              : Text('hash value is: \n ${state.hashInfoValue}'),
+        );
+      },
     );
   }
 }
