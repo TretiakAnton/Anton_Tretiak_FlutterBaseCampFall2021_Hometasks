@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:isolate';
 
-import 'package:lecture_2_hometask_starter/hash_calculator/heavy_task_performer.dart';
+import 'package:lecture_2_hometask_starter/blocks/heavy_task_performer.dart';
 import 'package:lecture_2_hometask_starter/helpers/random_number_hash_calculator.dart';
 
 class SpawnedIsolateTaskPerformer extends HeavyTaskPerformer {
@@ -14,7 +14,7 @@ class SpawnedIsolateTaskPerformer extends HeavyTaskPerformer {
     try {
       final spawnerReceivePort = ReceivePort();
       isolate = await Isolate.spawn(
-              _establishCommunicationWithSpawner, spawnerReceivePort.sendPort);
+          _establishCommunicationWithSpawner, spawnerReceivePort.sendPort);
 
       spawnerReceivePort.listen((message) {
         if (message is SendPort) {
