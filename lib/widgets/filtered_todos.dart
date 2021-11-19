@@ -29,7 +29,13 @@ class FilteredTodos extends StatelessWidget {
               localizations: localizations,
             ));
           },
-          onTap: () async {},
+          onTap: () {
+            //Navigator.of(context).pushNamed(detailsScreen);
+            return DetailsScreen(
+              task: '${todo.task}',
+              note: '${todo.note}',
+            );
+          },
           onCheckboxChanged: (_) {},
         );
       },

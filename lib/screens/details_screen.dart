@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailsScreen extends StatefulWidget {
-  final String id;
+  final String task;
+  final String note;
 
-  DetailsScreen({Key key, @required this.id})
+  DetailsScreen({Key key, @required this.task, @required this.note})
       : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
 
   @override
@@ -15,6 +16,19 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    String task = widget.task;
+    String note = widget.note;
+    return Center(
+      child: Column(
+        children: [
+          Text('Task is: $task \n'),
+          Placeholder(
+            fallbackWidth: 30,
+            color: Colors.white,
+          ),
+          Text('Note: $note')
+        ],
+      ),
+    );
   }
 }
