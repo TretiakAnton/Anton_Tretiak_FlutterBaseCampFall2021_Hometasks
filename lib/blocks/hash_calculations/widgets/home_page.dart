@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lecture_2_hometask_starter/blocks/hash_calculations/widgets/HashTextWidget.dart';
-import '../hash_calculation_page_state.dart';
+import 'package:lecture_2_hometask_starter/blocks/hash_calculations/widgets/hash_calculation_cubit.dart';
+import 'hash_text_widget.dart';
 
 String _iterationCount = "";
 
