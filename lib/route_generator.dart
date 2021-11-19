@@ -1,10 +1,12 @@
 import 'package:campnotes/screens/details_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'screens/home_screen.dart';
+
 class RouteGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final String name = settings.name;
-    final Object arguments = settings.arguments;
+    final Object task = settings.arguments;
 
     if (name == null) {
       return RouteGenerator.onUnknownRoute(settings);
@@ -19,12 +21,10 @@ class RouteGenerator {
           ),
         );
 
-      /*case secondPage:
+      case homeScreen:
         return MaterialPageRoute(
-          builder: (_) => SecondPage(
-            arguments: arguments as SecondPageArguments,
-          ),
-        );*/
+          builder: (_) => HomeScreen(),
+        );
 
       default:
         return RouteGenerator.onUnknownRoute(settings);

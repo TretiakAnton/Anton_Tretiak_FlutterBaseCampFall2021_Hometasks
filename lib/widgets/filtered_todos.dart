@@ -30,7 +30,7 @@ class FilteredTodos extends StatelessWidget {
             ));
           },
           onTap: () {
-            //Navigator.of(context).pushNamed(detailsScreen);
+            // Navigator.of(context).pushNamed(detailsScreen,arguments: todo.task,todo.note);
             return DetailsScreen(
               task: '${todo.task}',
               note: '${todo.note}',
