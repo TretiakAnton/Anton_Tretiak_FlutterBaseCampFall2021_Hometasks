@@ -5,6 +5,7 @@ import 'package:todos_app_core/todos_app_core.dart';
 class DetailsScreen extends StatefulWidget {
   final String task;
   final String note;
+  static const String detailsScreenRoute = 'detailsScreen';
 
   DetailsScreen({Key key, @required this.task, @required this.note})
       : super(key: key ?? ArchSampleKeys.todoDetailsScreen);

@@ -30,11 +30,12 @@ class FilteredTodos extends StatelessWidget {
             ));
           },
           onTap: () {
-            // Navigator.of(context).pushNamed(detailsScreen,arguments: todo.task,todo.note);
-            return DetailsScreen(
+            Navigator.of(context)
+                .pushNamed(DetailsScreen.detailsScreenRoute, arguments: todo);
+            /* return DetailsScreen(
               task: '${todo.task}',
               note: '${todo.note}',
-            );
+            );*/
           },
           onCheckboxChanged: (_) {},
         );

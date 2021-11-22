@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const String detailsScreenRoute = 'homeScreen';
   @override
   Widget build(BuildContext context) {
     final activeTab = AppTab.todos;
@@ -30,7 +31,7 @@ class HomeScreen extends StatelessWidget {
         body: TabBarView(
           children: [
             Center(
-              child: FilteredTodos(),
+              child: Container(child: FilteredTodos()),
             ),
             Center(
               child: FilteredTodos(),

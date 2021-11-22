@@ -1,27 +1,33 @@
 import 'package:campnotes/screens/details_screen.dart';
+import 'package:campnotes/widgets/todo_item.dart';
 import 'package:flutter/material.dart';
 
+import 'data/models/todo.dart';
 import 'screens/home_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final String name = settings.name;
-    final Object task = settings.arguments;
+    final Object arguments = settings.arguments;
 
     if (name == null) {
       return RouteGenerator.onUnknownRoute(settings);
     }
 
     switch (name) {
-      case detailsScreen:
+      case DetailsScreen.detailsScreenRoute:
+        Todo todoArgument;
+        if (arguments is Todo) {
+          todoArgument = arguments;
+        }
         return MaterialPageRoute(
           builder: (_) => DetailsScreen(
-            task: '',
-            note: '',
+            task: todoArgument.task,
+            note: todoArgument.note,
           ),
         );
 
-      case homeScreen:
+      case HomeScreen.detailsScreenRoute:
         return MaterialPageRoute(
           builder: (_) => HomeScreen(),
         );
