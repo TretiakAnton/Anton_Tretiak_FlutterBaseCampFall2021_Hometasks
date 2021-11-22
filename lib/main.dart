@@ -38,7 +38,15 @@ class TodosApp extends StatelessWidget {
     );
   }
 }*/
+import 'package:campnotes/screens/screens.dart';
+import 'package:campnotes/widgets/filtered_todos.dart';
+import 'package:campnotes/widgets/todo_item.dart';
 import 'package:flutter/material.dart';
+import 'package:todos_app_core/todos_app_core.dart';
+
+import 'data/models/todo.dart';
+import 'helpers/mocks.dart';
+import 'widgets/delete_todo_snack_bar.dart';
 
 void main() {
   runApp(MyApp());
@@ -192,18 +200,20 @@ class StackNavigatorChild extends StatelessWidget {
               return MaterialPageRoute(
                 settings: settings,
                 builder: (_) {
-                  return ColorListPage(tab);
+                  return FilteredTodos(tab);
+                  //ColorListPage(tab);
                 },
               );
             }
 
             if (routeName == '/details') {
-              final int colorIndex = settings.arguments as int;
-
+              final Todo todo = settings.arguments;
               return MaterialPageRoute(
                 settings: settings,
                 builder: (_) {
-                  return ColorDetailPage(tab, colorIndex);
+                  return DetailsScreen(
+                    todo: todo,
+                  );
                 },
               );
             }
@@ -231,7 +241,7 @@ class ColorListPage extends StatelessWidget {
   ];
 
   ColorListPage(this.tabItem, {Key key}) : super(key: key);
-
+  TabItem tab;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -241,26 +251,33 @@ class ColorListPage extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: Builder(builder: (BuildContext context) {
+      body: FilteredTodos(tab),
+      /*Builder(builder: (BuildContext context) {
+        final localizations = ArchSampleLocalizations.of(context);
+        final todos = mockTodos;
         return ListView.builder(
-          itemCount: materialIndices.length,
-          itemBuilder: (BuildContext content, int index) {
-            int materialIndex = materialIndices[index];
-
-            return Container(
-              //color: activeTabColor[tabItem][materialIndex],
-              child: ListTile(
-                title: Text('$materialIndex', style: TextStyle(fontSize: 24.0)),
-                trailing: Icon(Icons.chevron_right),
-                onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('/details', arguments: materialIndex);
-                },
-              ),
+          key: ArchSampleKeys.todoList,
+          itemCount: todos.length,
+          itemBuilder: (BuildContext context, int index) {
+            final todo = todos[index];
+            return TodoItem(
+              todo: todo,
+              onDismissed: (direction) {
+                ScaffoldMessenger.of(context).showSnackBar(DeleteTodoSnackBar(
+                  key: ArchSampleKeys.snackbar,
+                  todo: todo,
+                  onUndo: () {},
+                  localizations: localizations,
+                ));
+              },
+              onTap: () {
+                Navigator.of(context).pushNamed('/details', arguments: todo);
+              },
+              onCheckboxChanged: (_) {},
             );
           },
         );
-      }),
+      }),*/
     );
   }
 }
@@ -275,9 +292,7 @@ class ColorDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: activeTabColor[tabItem][colorIndex],
       appBar: AppBar(
-        //backgroundColor: activeTabColor[tabItem],
         title: Text(tabName[tabItem] + '[$colorIndex]'),
         centerTitle: true,
       ),
