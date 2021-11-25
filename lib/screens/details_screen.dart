@@ -1,12 +1,18 @@
+import 'package:campnotes/data/models/todo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailsScreen extends StatefulWidget {
-  final String id;
+  final Todo todo;
 
-  DetailsScreen({Key key, @required this.id})
-      : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
+/*  final String task;
+  final String note;*/
+  static const String detailsScreenRoute = 'detailsScreen';
+
+  const DetailsScreen({Key key, @required this.todo}) : super(key: key);
+
+  /* DetailsScreen({Key key, @required this.task, @required this.note})
+      : super(key: key ?? ArchSampleKeys.todoDetailsScreen);*/
 
   @override
   State<StatefulWidget> createState() => _DetailsScreenState();
@@ -15,6 +21,24 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    String task = widget.todo.task;
+    String note = widget.todo.note;
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            Text(
+              'Task is: \n $task ',
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              //width: 10,
+              height: 30,
+            ),
+            Text('Note: \n $note', textAlign: TextAlign.center)
+          ],
+        ),
+      ),
+    );
   }
 }
