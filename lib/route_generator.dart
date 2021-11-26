@@ -22,8 +22,7 @@ class RouteGenerator {
         }
         return MaterialPageRoute(
           builder: (_) => DetailsScreen(
-            task: todoArgument.task,
-            note: todoArgument.note,
+            todo: todoArgument,
           ),
         );
 
