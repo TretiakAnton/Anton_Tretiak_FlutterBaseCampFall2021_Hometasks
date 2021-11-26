@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class Authorization extends StatefulWidget {
   const Authorization({Key key}) : super(key: key);
-
   @override
   _AuthorizationState createState() => _AuthorizationState();
 }
@@ -36,6 +35,7 @@ class _AuthorizationState extends State<Authorization> {
                     _passwordCheckController.clear();
                     _emailCheck = _emailCheckController.text;
                     _emailCheckController.clear();
+                    Navigator.of(context).pushNamed('/appScreen');
                   }
                 },
                 child: Text('Log in')),
