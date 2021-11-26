@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../../main.dart';
 import 'bottom_navigation.dart';
 import 'stack_navigation.dart';
 
 class App extends StatefulWidget {
   const App({Key key}) : super(key: key);
+  static const String detailsScreenRoute = 'appScreen';
 
   @override
   _AppState createState() => _AppState();
@@ -25,7 +27,6 @@ class _AppState extends State<App> {
       onWillPop: () async {
         final hasPopped =
             await navigatorKeys[_currentTab].currentState.maybePop();
-
         if (hasPopped) {
           return false;
         } else {
@@ -57,7 +58,6 @@ class _AppState extends State<App> {
           onSelectTab: (TabItem newTab) {
             setState(() {
               _currentTab = newTab;
-
               // Unkomment to clear navigation stack of 1st and 2nd pages
               if (_currentTab == TabItem.leisure) {
                 navigatorKeys[TabItem.home]
