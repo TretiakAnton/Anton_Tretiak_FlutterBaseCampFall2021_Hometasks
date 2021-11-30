@@ -1,3 +1,4 @@
+import 'package:campnotes/main.dart';
 import 'package:campnotes/user_dao.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,7 @@ class _AuthorizationState extends State<Authorization> {
                     _emailCheck = _emailCheckController.text;
                     _passwordCheckController.clear();
                     _emailCheckController.clear();
-                    bool check = await checkUser(
+                    bool check = await database.userDao.(
                         email: _emailCheck, password: _passwordCheck);
                     if (check) {
                       Navigator.of(context).pushNamed('/appScreen');
@@ -66,15 +67,15 @@ class _AuthorizationState extends State<Authorization> {
     );
   }
 }
+/*
 
-Future<bool> checkUser(
-    {@required String email, @required String password}) async {
+Future<bool> checkUser({@required String email, @required String password}) async {
   bool isChecked;
   WidgetsFlutterBinding.ensureInitialized();
   final database = await $FloorFlutterDatabase
       .databaseBuilder('flutter_database.db')
       .build();
-  final userDao = database.taskDao;
+  final UserDao userDao = database.taskDao;
   final Stream<User> result = await userDao.findUserByMail(email);
   await result.listen((user1) {
     User checkUser = user1;
@@ -86,3 +87,4 @@ Future<bool> checkUser(
   });
   return isChecked;
 }
+*/
