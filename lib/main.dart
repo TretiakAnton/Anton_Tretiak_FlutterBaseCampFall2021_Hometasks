@@ -1,7 +1,8 @@
 import 'package:campnotes/screens/authorithation_screen.dart';
 import 'package:flutter/material.dart';
+import 'database.dart';
 
-void main() {
+Future<void> main() async {
   runApp(MyApp());
 }
 

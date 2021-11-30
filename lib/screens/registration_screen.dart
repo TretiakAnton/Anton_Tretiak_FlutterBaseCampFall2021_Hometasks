@@ -1,4 +1,6 @@
+import 'package:campnotes/user_dao.dart';
 import 'package:flutter/material.dart';
+import '../database.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key key}) : super(key: key);
@@ -8,10 +10,10 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
   String _email;
   String _password;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,9 +35,10 @@ class _RegistrationState extends State<Registration> {
                     null;
                   } else {
                     _password = _passwordController.text;
-                    _passwordController.clear();
                     _email = _emailController.text;
+                    _passwordController.clear();
                     _emailController.clear();
+                    addData(password: _password, email: _email);
                   }
                   Navigator.of(context).pop();
                 },
@@ -45,4 +48,15 @@ class _RegistrationState extends State<Registration> {
       ),
     );
   }
+}
+
+Future<void> addData(
+    {@required String email, @required String password}) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final database = await $FloorFlutterDatabase
+      .databaseBuilder('flutter_database.db')
+      .build();
+  final userDao = database.taskDao;
+  final user = User(email, password);
+  await userDao.insertPerson(user);
 }
