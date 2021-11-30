@@ -14,7 +14,7 @@ abstract class UserDao {
   Future<List<User>> findAllUsers();
 
   @Query('SELECT * FROM User WHERE mail = :mail')
-  Stream<User> findUserByMail(String mail);
+  Future<User> findUserByMail(String mail);
 
   @insert
   Future<void> insertPerson(User user);

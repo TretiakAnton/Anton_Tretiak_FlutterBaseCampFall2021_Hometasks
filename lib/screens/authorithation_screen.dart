@@ -67,24 +67,9 @@ class _AuthorizationState extends State<Authorization> {
     );
   }
 }
-/*
 
 Future<bool> checkUser({@required String email, @required String password}) async {
-  bool isChecked;
   WidgetsFlutterBinding.ensureInitialized();
-  final database = await $FloorFlutterDatabase
-      .databaseBuilder('flutter_database.db')
-      .build();
-  final UserDao userDao = database.taskDao;
-  final Stream<User> result = await userDao.findUserByMail(email);
-  await result.listen((user1) {
-    User checkUser = user1;
-    if (checkUser.password == password) {
-      isChecked = true;
-    } else {
-      isChecked = false;
-    }
-  });
-  return isChecked;
+  final expectedUser = await userRepository.getUserByEmail(email);
+  return expectedUser.password == password;
 }
-*/
