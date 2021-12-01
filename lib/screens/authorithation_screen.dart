@@ -1,5 +1,4 @@
 import 'package:campnotes/repositories/user_repository.dart';
-import 'package:campnotes/screens/registration_screen.dart';
 import 'package:campnotes/user_dao.dart';
 import 'package:flutter/material.dart';
 
@@ -34,35 +33,36 @@ class _AuthorizationState extends State<Authorization> {
                 decoration: InputDecoration(
                     labelText: 'Password', hintText: 'Password'),
               ),
-              OutlinedButton(
-                  onPressed: () async {
-                    if (_passwordCheckController.text.isEmpty ||
-                        _emailCheckController.text.isEmpty) {
-                      null;
-                    } else {
-                      _passwordCheck = _passwordCheckController.text;
-                      _emailCheck = _emailCheckController.text;
-                      _passwordCheckController.clear();
-                      _emailCheckController.clear();
-                      UserRepository repo;
-                      User user = await repo.getUserByEmail(_emailCheck);
-                      if (user.password == _passwordCheck) {
-                        Navigator.of(context).pushNamed('/appScreen');
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: OutlinedButton(
+                    onPressed: () async {
+                      if (_passwordCheckController.text.isEmpty ||
+                          _emailCheckController.text.isEmpty) {
+                        null;
                       } else {
-                        Navigator.of(context)
-                            .pushNamed(Registration.detailsScreenRoute);
+                        _passwordCheck = _passwordCheckController.text;
+                        _emailCheck = _emailCheckController.text;
+                        _passwordCheckController.clear();
+                        _emailCheckController.clear();
+                        UserRepository repo;
+                        User user = await repo.getUserByEmail(_emailCheck);
+                        if (user.password == _passwordCheck) {
+                          Navigator.of(context).pushNamed('appScreen');
+                        } else {
+                          Navigator.of(context).pushNamed('registrationScreen');
+                        }
                       }
-                    }
-                  },
-                  child: Text('Log in')),
+                    },
+                    child: Text('Log in')),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text("if don't have account: "),
+                  Text("If don't have account: "),
                   OutlinedButton(
                       onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(Registration.detailsScreenRoute);
+                        Navigator.of(context).pushNamed('registrationScreen');
                       },
                       child: Text('Register')),
                 ],

@@ -4,6 +4,7 @@ import 'package:campnotes/screens/authorithation_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'database.dart';
+import 'route_generator.dart';
 
 Future<void> main() async {
   InitDatabase();
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: RouteGenerator.onGenerateRoute,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
