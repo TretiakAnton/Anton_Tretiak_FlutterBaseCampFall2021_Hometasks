@@ -49,7 +49,8 @@ class _AuthorizationState extends State<Authorization> {
                       if (user.password == _passwordCheck) {
                         Navigator.of(context).pushNamed('/appScreen');
                       } else {
-                        Navigator.of(context).pushNamed('/registrationScreen');
+                        Navigator.of(context)
+                            .pushNamed(Registration.detailsScreenRoute);
                       }
                     }
                   },
@@ -60,9 +61,8 @@ class _AuthorizationState extends State<Authorization> {
                   Text("if don't have account: "),
                   OutlinedButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed(
-                          '/${Registration.detailsScreenRoute}',
-                        );
+                        Navigator.of(context)
+                            .pushNamed(Registration.detailsScreenRoute);
                       },
                       child: Text('Register')),
                 ],
