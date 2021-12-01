@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// @dart=2.12
 
 part of 'database.dart';
 
@@ -61,7 +62,7 @@ class _$FlutterDatabase extends FlutterDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  TaskDao? _taskDaoInstance;
+  UserDao? _taskDaoInstance;
 
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback? callback]) async {
@@ -82,7 +83,7 @@ class _$FlutterDatabase extends FlutterDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Task` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `message` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `User` (`mail` TEXT NOT NULL, `password` TEXT NOT NULL, PRIMARY KEY (`mail`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -91,34 +92,21 @@ class _$FlutterDatabase extends FlutterDatabase {
   }
 
   @override
-  TaskDao get taskDao {
-    return _taskDaoInstance ??= _$TaskDao(database, changeListener);
+  UserDao get taskDao {
+    return _taskDaoInstance ??= _$UserDao(database, changeListener);
   }
 }
 
-class _$TaskDao extends TaskDao {
-  _$TaskDao(this.database, this.changeListener)
-      : _queryAdapter = QueryAdapter(database, changeListener),
-        _taskInsertionAdapter = InsertionAdapter(
+class _$UserDao extends UserDao {
+  _$UserDao(this.database, this.changeListener)
+      : _queryAdapter = QueryAdapter(database),
+        _userInsertionAdapter = InsertionAdapter(
             database,
-            'Task',
-            (Task item) =>
-                <String, Object?>{'id': item.id, 'message': item.message},
-            changeListener),
-        _taskUpdateAdapter = UpdateAdapter(
-            database,
-            'Task',
-            ['id'],
-            (Task item) =>
-                <String, Object?>{'id': item.id, 'message': item.message},
-            changeListener),
-        _taskDeletionAdapter = DeletionAdapter(
-            database,
-            'Task',
-            ['id'],
-            (Task item) =>
-                <String, Object?>{'id': item.id, 'message': item.message},
-            changeListener);
+            'User',
+            (User item) => <String, Object?>{
+                  'mail': item.mail,
+                  'password': item.password
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -126,63 +114,25 @@ class _$TaskDao extends TaskDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<Task> _taskInsertionAdapter;
-
-  final UpdateAdapter<Task> _taskUpdateAdapter;
-
-  final DeletionAdapter<Task> _taskDeletionAdapter;
+  final InsertionAdapter<User> _userInsertionAdapter;
 
   @override
-  Future<Task?> findTaskById(int id) async {
-    return _queryAdapter.query('SELECT * FROM task WHERE id = ?1',
+  Future<List<User>> findAllUsers() async {
+    return _queryAdapter.queryList('SELECT * FROM User',
         mapper: (Map<String, Object?> row) =>
-            Task(row['id'] as int?, row['message'] as String),
-        arguments: [id]);
+            User(row['mail'] as String, row['password'] as String));
   }
 
   @override
-  Future<List<Task>> findAllTasks() async {
-    return _queryAdapter.queryList('SELECT * FROM task',
+  Future<User?> findUserByMail(String mail) async {
+    return _queryAdapter.query('SELECT * FROM User WHERE mail = ?1',
         mapper: (Map<String, Object?> row) =>
-            Task(row['id'] as int?, row['message'] as String));
+            User(row['mail'] as String, row['password'] as String),
+        arguments: [mail]);
   }
 
   @override
-  Stream<List<Task>> findAllTasksAsStream() {
-    return _queryAdapter.queryListStream('SELECT * FROM task',
-        mapper: (Map<String, Object?> row) =>
-            Task(row['id'] as int?, row['message'] as String),
-        queryableName: 'Task',
-        isView: false);
-  }
-
-  @override
-  Future<void> insertTask(Task task) async {
-    await _taskInsertionAdapter.insert(task, OnConflictStrategy.abort);
-  }
-
-  @override
-  Future<void> insertTasks(List<Task> tasks) async {
-    await _taskInsertionAdapter.insertList(tasks, OnConflictStrategy.abort);
-  }
-
-  @override
-  Future<void> updateTask(Task task) async {
-    await _taskUpdateAdapter.update(task, OnConflictStrategy.abort);
-  }
-
-  @override
-  Future<void> updateTasks(List<Task> task) async {
-    await _taskUpdateAdapter.updateList(task, OnConflictStrategy.abort);
-  }
-
-  @override
-  Future<void> deleteTask(Task task) async {
-    await _taskDeletionAdapter.delete(task);
-  }
-
-  @override
-  Future<void> deleteTasks(List<Task> tasks) async {
-    await _taskDeletionAdapter.deleteList(tasks);
+  Future<void> insertPerson(User user) async {
+    await _userInsertionAdapter.insert(user, OnConflictStrategy.abort);
   }
 }

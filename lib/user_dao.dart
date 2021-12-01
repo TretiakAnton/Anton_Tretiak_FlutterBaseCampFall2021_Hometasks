@@ -1,5 +1,7 @@
+// @dart=2.12
 import 'package:floor/floor.dart';
 
+@entity
 class User {
   @primaryKey
   String mail;
@@ -14,13 +16,8 @@ abstract class UserDao {
   Future<List<User>> findAllUsers();
 
   @Query('SELECT * FROM User WHERE mail = :mail')
-  Future<User> findUserByMail(String mail);
+  Future<User?> findUserByMail(String mail);
 
   @insert
   Future<void> insertPerson(User user);
-}
-
-@Database(version: 1, entities: [User])
-abstract class AppDatabase extends FloorDatabase {
-  UserDao get userDao;
 }
