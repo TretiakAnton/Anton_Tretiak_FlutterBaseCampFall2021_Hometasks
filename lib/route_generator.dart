@@ -1,3 +1,4 @@
+import 'package:campnotes/screens/authorization_screen.dart';
 import 'package:campnotes/screens/details_screen.dart';
 import 'package:campnotes/screens/registration_screen.dart';
 import 'package:campnotes/widgets/custom_widgets/app_widget.dart';
@@ -40,6 +41,11 @@ class RouteGenerator {
       case Registration.detailsScreenRoute:
         return MaterialPageRoute(
           builder: (_) => Registration(),
+        );
+
+      case Authorization.detailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => Authorization(),
         );
 
       default:

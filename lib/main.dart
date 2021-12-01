@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:campnotes/screens/authorithation_screen.dart';
+import 'package:campnotes/screens/authorization_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'database.dart';
@@ -15,8 +15,9 @@ Future<void> InitDatabase() async {
   WidgetsFlutterBinding.ensureInitialized();
 }
 
-final database =
-    $FloorFlutterDatabase.databaseBuilder('flutter_database.db').build();
+FlutterDatabase database = $FloorFlutterDatabase
+    .databaseBuilder('flutter_database.db')
+    .build() as FlutterDatabase;
 
 class MyApp extends StatelessWidget {
   @override

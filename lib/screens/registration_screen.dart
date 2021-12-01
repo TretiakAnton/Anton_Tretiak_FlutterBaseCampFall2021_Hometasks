@@ -2,6 +2,8 @@ import 'package:campnotes/repositories/user_repository.dart';
 import 'package:campnotes/user_dao.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+
 class Registration extends StatefulWidget {
   const Registration({Key key}) : super(key: key);
   static const String detailsScreenRoute = 'registrationScreen';
@@ -37,7 +39,7 @@ class _RegistrationState extends State<Registration> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: OutlinedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_passwordController.text.isEmpty ||
                           _emailController.text.isEmpty) {
                         null;
@@ -46,13 +48,14 @@ class _RegistrationState extends State<Registration> {
                         _email = _emailController.text;
                         _passwordController.clear();
                         _emailController.clear();
-                        UserRepository repo;
-                        User user;
-                        user.password = _password;
-                        user.mail = _email;
-                        repo.saveUser(user);
+                        UserRepository repo =
+                            UserRepository(database: database);
+                        var user1 = User(_email, _password);
+                        print(user1.mail);
+                        print(user1.password);
+                        await repo.saveUser(user1);
                       }
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pushNamed('authorizationScreen');
                     },
                     child: Text('Register')),
               ),

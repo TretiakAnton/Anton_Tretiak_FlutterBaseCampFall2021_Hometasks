@@ -2,8 +2,11 @@ import 'package:campnotes/repositories/user_repository.dart';
 import 'package:campnotes/user_dao.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+
 class Authorization extends StatefulWidget {
   const Authorization({Key key}) : super(key: key);
+  static const String detailsScreenRoute = 'authorizationScreen';
 
   @override
   _AuthorizationState createState() => _AuthorizationState();
@@ -45,7 +48,8 @@ class _AuthorizationState extends State<Authorization> {
                         _emailCheck = _emailCheckController.text;
                         _passwordCheckController.clear();
                         _emailCheckController.clear();
-                        UserRepository repo;
+                        UserRepository repo =
+                            UserRepository(database: database);
                         User user = await repo.getUserByEmail(_emailCheck);
                         if (user.password == _passwordCheck) {
                           Navigator.of(context).pushNamed('appScreen');
