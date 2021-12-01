@@ -2,8 +2,8 @@ import 'package:floor/floor.dart';
 
 class User {
   @primaryKey
-  final String mail;
-  final String password;
+  String mail;
+  String password;
 
   User(this.mail, this.password);
 }

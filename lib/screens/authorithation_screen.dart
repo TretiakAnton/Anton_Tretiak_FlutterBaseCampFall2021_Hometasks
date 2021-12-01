@@ -1,8 +1,6 @@
-import 'package:campnotes/main.dart';
+import 'package:campnotes/repositories/user_repository.dart';
 import 'package:campnotes/user_dao.dart';
 import 'package:flutter/material.dart';
-
-import '../database.dart';
 
 class Authorization extends StatefulWidget {
   const Authorization({Key key}) : super(key: key);
@@ -41,9 +39,9 @@ class _AuthorizationState extends State<Authorization> {
                     _emailCheck = _emailCheckController.text;
                     _passwordCheckController.clear();
                     _emailCheckController.clear();
-                    bool check = await database.userDao.(
-                        email: _emailCheck, password: _passwordCheck);
-                    if (check) {
+                    UserRepository repo;
+                    User user = await repo.getUserByEmail(_emailCheck);
+                    if (user.password == _passwordCheck) {
                       Navigator.of(context).pushNamed('/appScreen');
                     } else {
                       Navigator.of(context).pushNamed('/registration');
@@ -66,10 +64,4 @@ class _AuthorizationState extends State<Authorization> {
       ),
     );
   }
-}
-
-Future<bool> checkUser({@required String email, @required String password}) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final expectedUser = await userRepository.getUserByEmail(email);
-  return expectedUser.password == password;
 }

@@ -1,13 +1,9 @@
 import 'dart:async';
 
-import 'package:campnotes/repositories/user_repository.dart';
 import 'package:campnotes/screens/authorithation_screen.dart';
-import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
-import 'database.dart';
-import 'user_dao.dart';
 
-UserRepository userRepository;
+import 'database.dart';
 
 Future<void> main() async {
   InitDatabase();
@@ -16,11 +12,10 @@ Future<void> main() async {
 
 Future<void> InitDatabase() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final database = await $FloorFlutterDatabase
-      .databaseBuilder('flutter_database.db')
-      .build();
-  userRepository = UserRepository(database: database);
 }
+
+final database =
+    $FloorFlutterDatabase.databaseBuilder('flutter_database.db').build();
 
 class MyApp extends StatelessWidget {
   @override
