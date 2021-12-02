@@ -11,13 +11,16 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
+FlutterDatabase database;
+
 Future<void> InitDatabase() async {
   WidgetsFlutterBinding.ensureInitialized();
+  database = await $FloorFlutterDatabase
+      .databaseBuilder('flutter_database.db')
+      .build();
 }
 
-FlutterDatabase database = $FloorFlutterDatabase
-    .databaseBuilder('flutter_database.db')
-    .build() as FlutterDatabase;
+//FlutterDatabase database = await $FloorFlutterDatabase.databaseBuilder('flutter_database.db').build();
 
 class MyApp extends StatelessWidget {
   @override
