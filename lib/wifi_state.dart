@@ -11,7 +11,7 @@ class WifiState {
   }
 
   static Future<bool?> get wifistate async {
-    final bool? state = await _channel.invokeMethod('isWifiEnabled');
+    final bool? state = await _channel.invokeMethod('getWifiState');
     return state;
   }
 }
