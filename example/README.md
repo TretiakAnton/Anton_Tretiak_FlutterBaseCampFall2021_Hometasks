@@ -1,6 +1,6 @@
-# battery_test_plugin_example
+# plugin_wifi_example
 
-Demonstrates how to use the battery_test_plugin plugin.
+Demonstrates how to use the plugin_wifi plugin.
 
 ## Getting Started
 

@@ -1,25 +1,20 @@
+import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-
-import 'package:battery_test_plugin/wifi_test_plugin.dart';
 import 'package:flutter/services.dart';
-import 'package:wifi_test_plugin/wifi_test_plugin.dart';
+import 'package:plugin_wifi/plugin_wifi.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
-  State<MyApp> createState() => _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  late bool _wifiConnection;
-  late WifiTestPlugin wifiTestPlugin;
+  String _platformVersion = 'Unknown';
 
   @override
   void initState() {
@@ -29,14 +24,14 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    bool wifiConnection;
-    wifiTestPlugin = WifiTestPlugin();
+    String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      wifiConnection = await wifiTestPlugin.getBatteryLevel;
+      platformVersion =
+          await PluginWifi.platformVersion ?? 'Unknown platform version';
     } on PlatformException {
-      wifiConnection = false;
+      platformVersion = 'Failed to get platform version.';
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -45,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      _wifiConnection = wifiConnection;
+      _platformVersion = platformVersion;
     });
   }
 
@@ -57,16 +52,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Column(
-            children: [
-              Text('Running on: $_wifiConnection\n'),
-              StreamBuilder<int>(
-                  stream: wifiTestPlugin.getBatteryEvents,
-                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                    return Text('Running on: ${snapshot.data}\n');
-                  })
-            ],
-          ),
+          child: Text('Running on: $_platformVersion\n'),
         ),
       ),
     );
