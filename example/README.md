@@ -1,6 +1,6 @@
-# plugin_wifi_example
+# wifi_state_example
 
-Demonstrates how to use the plugin_wifi plugin.
+Demonstrates how to use the wifi_state plugin.
 
 ## Getting Started
 

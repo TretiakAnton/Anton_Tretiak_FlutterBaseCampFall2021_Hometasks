@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:plugin_wifi/plugin_wifi.dart';
+import 'package:wifi_state/wifi_state.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,6 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  bool _isWifiEnable = false;
 
   @override
   void initState() {
@@ -25,13 +26,20 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
+    bool isWifiEnabled;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
       platformVersion =
-          await PluginWifi.platformVersion ?? 'Unknown platform version';
+          await WifiState.platformVersion ?? 'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
+    }
+
+    try {
+      isWifiEnabled = await WifiState.wifistate ?? false;
+    } on PlatformException {
+      isWifiEnabled = false;
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -41,6 +49,7 @@ class _MyAppState extends State<MyApp> {
 
     setState(() {
       _platformVersion = platformVersion;
+      _isWifiEnable = isWifiEnabled;
     });
   }
 
@@ -52,7 +61,12 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              Text('Running on: $_platformVersion\n'),
+              Text('wifi connect is $_isWifiEnable'),
+            ],
+          ),
         ),
       ),
     );
