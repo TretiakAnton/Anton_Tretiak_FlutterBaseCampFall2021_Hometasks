@@ -49,9 +49,9 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               Text('wifi connect is $_isWifiEnable \n'),
-              StreamBuilder<int>(
+              StreamBuilder<bool>(
                   stream: wifiState.getWifiEvents,
-                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                     return Text('${snapshot.data}\n');
                   })
             ],

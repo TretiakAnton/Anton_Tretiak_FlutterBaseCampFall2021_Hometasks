@@ -28,6 +28,6 @@ class WifiState {
     });
   }
 
-  Stream<int>? get getWifiEvents =>
+  Stream<bool>? get getWifiEvents =>
       _channelEvent.receiveBroadcastStream().map((event) => event);
 }
