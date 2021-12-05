@@ -12,22 +12,6 @@ class WifiState {
     return state;
   }
 
-  WifiTestPlugin() async {
-    _channel.setMethodCallHandler(methodCallHandler);
-  }
-
-  late StreamController<bool> streamController;
-
-  @override
-  Future<dynamic> methodCallHandler(MethodCall call) {
-    return Future<dynamic>(() {
-      if (call.method == 'wifiResponse') {
-        print('setMethodCallHandler ${call.arguments}');
-        streamController.sink.add(call.arguments);
-      }
-    });
-  }
-
   Stream<bool>? get getWifiEvents =>
       _channelEvent.receiveBroadcastStream().map((event) => event);
 }
