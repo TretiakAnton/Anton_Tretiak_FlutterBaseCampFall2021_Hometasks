@@ -15,6 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _isWifiEnable = false;
+  late WifiState wifiState;
 
   @override
   void initState() {
@@ -24,20 +25,12 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
     bool isWifiEnabled;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-
     try {
       isWifiEnabled = await WifiState.wifistate ?? false;
     } on PlatformException {
       isWifiEnabled = false;
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
@@ -55,7 +48,12 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(
             children: [
-              Text('wifi connect is $_isWifiEnable'),
+              Text('wifi connect is $_isWifiEnable \n'),
+              StreamBuilder<int>(
+                  stream: wifiState.getWifiEvents,
+                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                    return Text('${snapshot.data}\n');
+                  })
             ],
           ),
         ),

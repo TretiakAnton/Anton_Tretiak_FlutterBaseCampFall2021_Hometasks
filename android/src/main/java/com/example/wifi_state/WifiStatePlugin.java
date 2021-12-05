@@ -64,7 +64,7 @@ public class WifiStatePlugin implements FlutterPlugin, MethodCallHandler, EventC
           sendNotification("Wifi state","Changed to: on");
           events.success(true);
         } else {
-          sendNotification("Wifi state","Changed to: on");
+          sendNotification("Wifi state","Changed to: off");
           events.success(false);
         }
       }
