@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _isWifiEnable = false;
-  late WifiState wifiState;
+  WifiState wifiState = WifiState();
 
   @override
   void initState() {
