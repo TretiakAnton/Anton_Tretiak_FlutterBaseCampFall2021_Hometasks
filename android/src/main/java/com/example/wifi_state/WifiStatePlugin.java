@@ -24,10 +24,7 @@ import io.flutter.plugin.common.EventChannel;
 /** WifiStatePlugin */
 
 public class WifiStatePlugin implements FlutterPlugin, MethodCallHandler, EventChannel.StreamHandler {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
+
   private MethodChannel channel;
   private EventChannel wifiStateChangeEventChannel;
   private Context context;
@@ -43,6 +40,7 @@ public class WifiStatePlugin implements FlutterPlugin, MethodCallHandler, EventC
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("getWifiState")) {
       boolean wifiEnabled = isWifiEnabled(context);
+      result.success(wifiEnabled);
     } else {
       result.notImplemented();
     }

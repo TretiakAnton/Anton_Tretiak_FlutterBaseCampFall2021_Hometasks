@@ -14,7 +14,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
   bool _isWifiEnable = false;
 
   @override
@@ -29,12 +28,6 @@ class _MyAppState extends State<MyApp> {
     bool isWifiEnabled;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await WifiState.platformVersion ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
 
     try {
       isWifiEnabled = await WifiState.wifistate ?? false;
@@ -48,7 +41,6 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
       _isWifiEnable = isWifiEnabled;
     });
   }
@@ -63,7 +55,6 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(
             children: [
-              Text('Running on: $_platformVersion\n'),
               Text('wifi connect is $_isWifiEnable'),
             ],
           ),
