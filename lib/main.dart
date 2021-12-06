@@ -2,16 +2,18 @@ import 'dart:async';
 
 import 'package:campnotes/screens/authorization_screen.dart';
 import 'package:campnotes/widgets/custom_widgets/app_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'database.dart';
 import 'route_generator.dart';
 
 Future<void> main() async {
-  InitDatabase();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
-
+/*
 FlutterDatabase database;
 
 Future<void> InitDatabase() async {
@@ -19,9 +21,7 @@ Future<void> InitDatabase() async {
   database = await $FloorFlutterDatabase
       .databaseBuilder('flutter_database.db')
       .build();
-}
-
-//FlutterDatabase database = await $FloorFlutterDatabase.databaseBuilder('flutter_database.db').build();
+}*/
 
 class MyApp extends StatelessWidget {
   @override
