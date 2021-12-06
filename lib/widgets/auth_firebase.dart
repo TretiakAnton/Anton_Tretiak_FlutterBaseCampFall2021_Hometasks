@@ -56,5 +56,15 @@ class AuthenticationWrapper extends StatelessWidget {
     }
   }
 
-  //String checkEmail()
+  String checkUser({@required String email, @required String password}) {
+    if (email.length < 5) {
+      return 'too short email';
+    } else if (password.length < 5) {
+      return 'too short password';
+    } else if (password.isEmpty || email.isEmpty) {
+      return 'please enter your data again';
+    } else {
+      return 'all good';
+    }
+  }
 }
