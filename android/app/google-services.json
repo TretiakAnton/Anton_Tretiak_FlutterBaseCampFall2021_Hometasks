@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "735539281382",
+    "project_id": "base-camp-2cd88",
+    "storage_bucket": "base-camp-2cd88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735539281382:android:eaf7c488c2b4b4f2ba6a27",
+        "android_client_info": {
+          "package_name": "com.example.base_camp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735539281382-b5llq4ac6ca1kpd23ek6henhom634ck6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAIwx4NynooBFXOiuGtsGUiDNlrLN0rbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735539281382-b5llq4ac6ca1kpd23ek6henhom634ck6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
