@@ -1,8 +1,10 @@
+import 'package:campnotes/widgets/auth_firebase.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
-import '../../main.dart';
-import 'bottom_navigation.dart';
-import 'stack_navigation.dart';
+import '../main.dart';
+import '../widgets/custom_widgets/bottom_navigation.dart';
+import '../widgets/custom_widgets/stack_navigation.dart';
 
 class App extends StatefulWidget {
   const App({Key key}) : super(key: key);
@@ -51,6 +53,11 @@ class _AppState extends State<App> {
               _currentTab == TabItem.leisure,
               navigatorKeys[TabItem.leisure],
             ),
+            OutlinedButton(
+                onPressed: () {
+                  context.read<AuthenticationService>().signOut();
+                },
+                child: Text('Sign Out'))
           ],
         ),
         bottomNavigationBar: BottomNavigation(

@@ -1,6 +1,8 @@
 import 'package:campnotes/repositories/user_repository.dart';
 import 'package:campnotes/user_dao.dart';
+import 'package:campnotes/widgets/auth_firebase.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 import '../main.dart';
 
@@ -44,18 +46,13 @@ class _AuthorizationState extends State<Authorization> {
                           _emailCheckController.text.isEmpty) {
                         null;
                       } else {
-                        _passwordCheck = _passwordCheckController.text;
+                        /* _passwordCheck = _passwordCheckController.text;
                         _emailCheck = _emailCheckController.text;
                         _passwordCheckController.clear();
-                        _emailCheckController.clear();
-                        UserRepository repo =
-                            UserRepository(database: database);
-                        User user = await repo.getUserByEmail(_emailCheck);
-                        if (user.password == _passwordCheck) {
-                          Navigator.of(context).pushNamed('appScreen');
-                        } else {
-                          Navigator.of(context).pushNamed('registrationScreen');
-                        }
+                        _emailCheckController.clear();*/
+                        context.read<AuthenticationService>().signIn(
+                            email: _emailCheckController.text.trim(),
+                            password: _passwordCheckController.text.trim());
                       }
                     },
                     child: Text('Log in')),

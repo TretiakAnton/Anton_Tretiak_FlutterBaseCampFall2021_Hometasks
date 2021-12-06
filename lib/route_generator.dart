@@ -1,7 +1,7 @@
 import 'package:campnotes/screens/authorization_screen.dart';
 import 'package:campnotes/screens/details_screen.dart';
 import 'package:campnotes/screens/registration_screen.dart';
-import 'package:campnotes/widgets/custom_widgets/app_widget.dart';
+import 'package:campnotes/screens/app_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'data/models/todo.dart';

@@ -1,16 +1,22 @@
 import 'dart:async';
 
 import 'package:campnotes/screens/authorization_screen.dart';
+import 'package:campnotes/widgets/auth_firebase.dart';
+import 'package:campnotes/screens/app_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'database.dart';
 import 'route_generator.dart';
 
 Future<void> main() async {
-  InitDatabase();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
-
+/*
 FlutterDatabase database;
 
 Future<void> InitDatabase() async {
@@ -18,20 +24,32 @@ Future<void> InitDatabase() async {
   database = await $FloorFlutterDatabase
       .databaseBuilder('flutter_database.db')
       .build();
-}
-
-//FlutterDatabase database = await $FloorFlutterDatabase.databaseBuilder('flutter_database.db').build();
+}*/
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: RouteGenerator.onGenerateRoute,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        Provider<AuthenticationService>(
+          create: (_) => AuthenticationService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) =>
+              context.read<AuthenticationService>().authStateChanges,
+          initialData: null,
+        )
+      ],
+      child: MaterialApp(
+        onGenerateRoute: RouteGenerator.onGenerateRoute,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home:
+            //App(),
+            Authorization(),
       ),
-      home: Authorization(),
     );
   }
 }
@@ -43,4 +61,4 @@ const Map<TabItem, String> tabName = {
   TabItem.work: 'work',
   TabItem.leisure: 'leisure',
 };
-//init 8 hw
+//init 8 hw implement
