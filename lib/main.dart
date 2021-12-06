@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:campnotes/screens/authorization_screen.dart';
-import 'package:campnotes/widgets/custom_widgets/app_widget.dart';
+import 'package:campnotes/widgets/auth_firebase.dart';
+import 'package:campnotes/screens/app_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'database.dart';
 import 'route_generator.dart';
@@ -26,15 +28,27 @@ Future<void> InitDatabase() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: RouteGenerator.onGenerateRoute,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        Provider<AuthenticationService>(
+          create: (_) => AuthenticationService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) =>
+              context.read<AuthenticationService>().authStateChanges,
+          initialData: null,
+        )
+      ],
+      child: MaterialApp(
+        onGenerateRoute: RouteGenerator.onGenerateRoute,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home:
+            //App(),
+            Authorization(),
       ),
-      home:
-          //App(),
-          Authorization(),
     );
   }
 }

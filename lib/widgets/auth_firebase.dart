@@ -1,10 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
   AuthenticationService(this._firebaseAuth);
 
-  Stream<User> get authStateChsnges => _firebaseAuth.authStateChanges();
+  Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
+
+  Future<void> signOut({String email, String password}) async {
+    await _firebaseAuth.signOut();
+  }
 
   Future<String> signIn({String email, String password}) async {
     try {
@@ -23,6 +29,21 @@ class AuthenticationService {
       return 'Signed up';
     } on FirebaseAuthException catch (e) {
       return e.message;
+    }
+  }
+}
+
+class AuthenticationWrapper extends StatelessWidget {
+  const AuthenticationWrapper({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User>();
+
+    if (firebaseUser != null) {
+      Navigator.of(context).pushNamed('appScreen');
+    } else {
+      Navigator.of(context).pushNamed('registrationScreen');
     }
   }
 }
