@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:campnotes/screens/authorization_screen.dart';
+import 'package:campnotes/widgets/custom_widgets/app_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'database.dart';
@@ -31,7 +32,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Authorization(),
+      home:
+          //App(),
+          Authorization(),
     );
   }
 }
