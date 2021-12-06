@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:735539281382:android:eaf7c488c2b4b4f2ba6a27",
+        "mobilesdk_app_id": "1:735539281382:android:453d8d5d94149fadba6a27",
         "android_client_info": {
-          "package_name": "com.example.base_camp"
+          "package_name": "com.example.campnotes"
         }
       },
       "oauth_client": [
