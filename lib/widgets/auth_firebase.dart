@@ -4,6 +4,7 @@ import 'package:provider/src/provider.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
+
   AuthenticationService(this._firebaseAuth);
 
   Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
@@ -23,12 +24,20 @@ class AuthenticationService {
   }
 
   Future<String> signUp({String email, String password}) async {
-    try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      return 'Signed up';
-    } on FirebaseAuthException catch (e) {
-      return e.message;
+    if (email.length < 5) {
+      return 'too short email';
+    } else if (password.length < 5) {
+      return 'too short password';
+    } else if (password.isEmpty || email.isEmpty) {
+      return 'please enter your data again';
+    } else {
+      try {
+        await _firebaseAuth.createUserWithEmailAndPassword(
+            email: email, password: password);
+        return 'Signed up';
+      } on FirebaseAuthException catch (e) {
+        return e.message;
+      }
     }
   }
 }
@@ -44,6 +53,18 @@ class AuthenticationWrapper extends StatelessWidget {
       Navigator.of(context).pushNamed('appScreen');
     } else {
       Navigator.of(context).pushNamed('registrationScreen');
+    }
+  }
+
+  String checkUser({@required String email, @required String password}) {
+    if (email.length < 5) {
+      return 'too short email';
+    } else if (password.length < 5) {
+      return 'too short password';
+    } else if (password.isEmpty || email.isEmpty) {
+      return 'please enter your data again';
+    } else {
+      return 'all good';
     }
   }
 }
