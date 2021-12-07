@@ -40,6 +40,8 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   test: ^1.10.1
   mockito: ^5.0.16
   floor_generator: ^1.1.0

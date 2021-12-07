@@ -52,7 +52,7 @@ class _RegistrationState extends State<Registration> {
                       }
                       Navigator.of(context).pushNamed('authorizationScreen');
                     },
-                    child: Text('Register')),
+                    child: Text('Register new user')),
               ),
             ],
           ),
