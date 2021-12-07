@@ -2,22 +2,6 @@ import 'package:campnotes/widgets/auth_firebase.dart';
 import 'package:test/test.dart';
 
 void main() {
-  setUp(() {
-    // do something before test start
-  });
-
-  setUpAll(() {
-    // do something once before all test start
-  });
-
-  tearDown(() {
-    // do something after test finish
-  });
-
-  tearDownAll(() {
-    // do something after all test finish
-  });
-
   test('Short Email Test', () {
     var result =
         AuthenticationWrapper().checkUser(email: 'mail', password: 'passsword');
