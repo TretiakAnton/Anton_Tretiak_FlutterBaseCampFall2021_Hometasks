@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:campnotes/screens/authorization_screen.dart';
+import 'package:campnotes/screens/screens.dart';
 import 'package:campnotes/widgets/auth_firebase.dart';
 import 'package:campnotes/screens/app_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,15 +17,6 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
-/*
-FlutterDatabase database;
-
-Future<void> InitDatabase() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  database = await $FloorFlutterDatabase
-      .databaseBuilder('flutter_database.db')
-      .build();
-}*/
 
 class MyApp extends StatelessWidget {
   @override
@@ -47,8 +39,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home:
-            //App(),
-            Authorization(),
+        //App(),
+        //Authorization(),
       ),
     );
   }

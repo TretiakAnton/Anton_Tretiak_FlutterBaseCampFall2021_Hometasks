@@ -22,6 +22,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       body: Center(
         child: Column(
           children: [
+            Icon(Icons.description),
             Text(
               'Task is: \n $task ',
               textAlign: TextAlign.center,
