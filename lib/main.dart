@@ -35,9 +35,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: App(),
-        //HomeScreen()
-        //Authorization(),
+        home: Authorization(),
       ),
     );
   }

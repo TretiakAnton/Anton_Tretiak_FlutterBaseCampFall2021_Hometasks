@@ -1,7 +1,6 @@
 import 'package:campnotes/widgets/auth_firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 
 import '../main.dart';
 import '../widgets/custom_widgets/bottom_navigation.dart';

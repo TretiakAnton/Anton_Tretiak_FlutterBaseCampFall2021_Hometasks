@@ -8,14 +8,10 @@ typedef OnSaveCallback = Function(String task, String note);
 
 class AddEditScreen extends StatefulWidget {
   static const String detailsScreenRoute = 'addEditScreen';
-  //final bool isEditing;
-  //final OnSaveCallback onSave;
   final Todo todo;
 
   AddEditScreen({
     Key key,
-    //@required this.onSave,
-    //@required this.isEditing,
     this.todo,
   }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
@@ -39,6 +35,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
       _large = !_large;
     });
   }
+
   // bool get isEditing => widget.isEditing;
 
   @override
