@@ -36,8 +36,6 @@ class _AddEditScreenState extends State<AddEditScreen> {
     });
   }
 
-  // bool get isEditing => widget.isEditing;
-
   @override
   Widget build(BuildContext context) {
     int deviceWidth = MediaQuery.of(context).size.shortestSide.toInt();
