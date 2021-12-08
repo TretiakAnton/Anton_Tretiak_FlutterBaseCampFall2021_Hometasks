@@ -30,12 +30,12 @@ class _AddEditScreenState extends State<AddEditScreen> {
   String _note;
   double _padding;
   final CustomPadding temp = new CustomPadding();
-  double _size = 40.0;
+  double _size = 50.0;
   bool _large = false;
 
   void _updateSize() {
     setState(() {
-      _size = _large ? 80 : 40;
+      _size = _large ? 80 : 50;
       _large = !_large;
     });
   }
@@ -77,7 +77,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
         ),
       ),
       floatingActionButton: GestureDetector(
-        onDoubleTap: _updateSize,
+        onLongPress: _updateSize,
         child: AnimatedSize(
           curve: Curves.easeInOutSine,
           duration: const Duration(seconds: 1),
