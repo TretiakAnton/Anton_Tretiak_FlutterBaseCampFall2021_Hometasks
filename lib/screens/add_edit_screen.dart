@@ -1,4 +1,5 @@
 import 'package:campnotes/data/models/todo.dart';
+import 'package:campnotes/helpers/layout_padding.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
@@ -6,14 +7,11 @@ import 'package:todos_app_core/todos_app_core.dart';
 typedef OnSaveCallback = Function(String task, String note);
 
 class AddEditScreen extends StatefulWidget {
-  final bool isEditing;
-  final OnSaveCallback onSave;
+  static const String detailsScreenRoute = 'addEditScreen';
   final Todo todo;
 
   AddEditScreen({
     Key key,
-    @required this.onSave,
-    @required this.isEditing,
     this.todo,
   }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
@@ -26,23 +24,32 @@ class _AddEditScreenState extends State<AddEditScreen> {
   TextEditingController _noteController = TextEditingController();
   String _task;
   String _note;
+  double _padding;
+  final CustomPadding temp = new CustomPadding();
+  double _size = 50.0;
+  bool _large = false;
 
-  bool get isEditing => widget.isEditing;
+  void _updateSize() {
+    setState(() {
+      _size = _large ? 80 : 50;
+      _large = !_large;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    int deviceWidth = MediaQuery.of(context).size.shortestSide.toInt();
+    _padding = temp.getPadding(10, deviceWidth);
     return Scaffold(
       appBar: AppBar(title: Text('Add Todo')),
       body: Center(
         child: ListView(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(_padding),
           children: <Widget>[
             TextField(
               controller: _taskController,
               decoration: InputDecoration(
                 hintText: ('What needs to be done?'),
-                //hintStyle: textTheme.headline5,
               ),
               style: TextStyle(
                 color: Colors.grey,
@@ -53,7 +60,6 @@ class _AddEditScreenState extends State<AddEditScreen> {
               controller: _noteController,
               decoration: InputDecoration(
                 hintText: 'Additional notes...',
-                // hintStyle: textTheme.subtitle1,
               ),
               style: TextStyle(
                 color: Colors.grey,
@@ -65,20 +71,35 @@ class _AddEditScreenState extends State<AddEditScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (_taskController.text.isEmpty || _noteController.text.isEmpty) {
-            null;
-          } else {
-            _task = _taskController.text;
-            print('$_task');
-            _taskController.clear();
-            _note = _noteController.text;
-            print('$_note');
-            _noteController.clear();
-          }
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: GestureDetector(
+        onLongPress: _updateSize,
+        child: AnimatedSize(
+          curve: Curves.easeInOutSine,
+          duration: const Duration(seconds: 1),
+          child: Container(
+            width: _size,
+            height: _size,
+            child: FittedBox(
+              child: FloatingActionButton(
+                mini: true,
+                onPressed: () {
+                  if (_taskController.text.isEmpty ||
+                      _noteController.text.isEmpty) {
+                    null;
+                  } else {
+                    _task = _taskController.text;
+                    print('$_task');
+                    _taskController.clear();
+                    _note = _noteController.text;
+                    print('$_note');
+                    _noteController.clear();
+                  }
+                },
+                child: Icon(Icons.add),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

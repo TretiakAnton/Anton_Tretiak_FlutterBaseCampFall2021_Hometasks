@@ -77,6 +77,13 @@ class _AppState extends State<App> {
             });
           },
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed('addEditScreen');
+          },
+          child: Icon(Icons.add),
+          tooltip: 'Add todo',
+        ),
       ),
     );
   }

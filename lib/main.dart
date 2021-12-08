@@ -1,16 +1,13 @@
 import 'dart:async';
 
-import 'package:campnotes/screens/authorization_screen.dart';
-import 'package:campnotes/screens/screens.dart';
 import 'package:campnotes/widgets/auth_firebase.dart';
-import 'package:campnotes/screens/app_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'database.dart';
 import 'route_generator.dart';
+import 'screens/screens.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,9 +35,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home:
-            //App(),
-            Authorization(),
+        home: Authorization(),
       ),
     );
   }
@@ -53,4 +48,4 @@ const Map<TabItem, String> tabName = {
   TabItem.work: 'work',
   TabItem.leisure: 'leisure',
 };
-//init 10 hw
+//init 10 hw impl

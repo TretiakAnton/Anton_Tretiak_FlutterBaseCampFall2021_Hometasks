@@ -1,5 +1,4 @@
 import 'package:campnotes/bloc/models/app_tab.dart';
-import 'package:campnotes/localization.dart';
 import 'package:campnotes/main.dart';
 import 'package:campnotes/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ class HomeScreen extends StatelessWidget {
   final TabItem tab;
 
   const HomeScreen({Key key, this.tab}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final activeTab = AppTab.todos;
@@ -26,7 +26,6 @@ class HomeScreen extends StatelessWidget {
               Tab(text: 'Leisure', icon: Icon(Icons.airplanemode_active)),
             ],
           ),
-          title: Text(FlutterBlocLocalizations.of(context).appTitle),
           actions: [
             FilterButton(visible: activeTab == AppTab.todos),
             ExtraActions(),
@@ -45,14 +44,12 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        //activeTab == AppTab.todos ? FilteredTodos() : Stats(),
         floatingActionButton: FloatingActionButton(
           key: ArchSampleKeys.addTodoFab,
           onPressed: () {
             Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
           },
           child: Icon(Icons.add),
-          tooltip: ArchSampleLocalizations.of(context).addTodo,
         ),
         bottomNavigationBar: TabSelector(
           activeTab: activeTab,
@@ -62,4 +59,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-//5 hw init
