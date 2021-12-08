@@ -28,20 +28,28 @@ class _AddEditScreenState extends State<AddEditScreen> {
   TextEditingController _noteController = TextEditingController();
   String _task;
   String _note;
-  double padding;
+  double _padding;
   final CustomPadding temp = new CustomPadding();
+  double _size = 40.0;
+  bool _large = false;
 
+  void _updateSize() {
+    setState(() {
+      _size = _large ? 80 : 40;
+      _large = !_large;
+    });
+  }
   // bool get isEditing => widget.isEditing;
 
   @override
   Widget build(BuildContext context) {
     int deviceWidth = MediaQuery.of(context).size.shortestSide.toInt();
-    padding = temp.getPadding(10, deviceWidth);
+    _padding = temp.getPadding(10, deviceWidth);
     return Scaffold(
       appBar: AppBar(title: Text('Add Todo')),
       body: Center(
         child: ListView(
-          padding: EdgeInsets.all(padding),
+          padding: EdgeInsets.all(_padding),
           children: <Widget>[
             TextField(
               controller: _taskController,
@@ -68,20 +76,35 @@ class _AddEditScreenState extends State<AddEditScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (_taskController.text.isEmpty || _noteController.text.isEmpty) {
-            null;
-          } else {
-            _task = _taskController.text;
-            print('$_task');
-            _taskController.clear();
-            _note = _noteController.text;
-            print('$_note');
-            _noteController.clear();
-          }
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: GestureDetector(
+        onDoubleTap: _updateSize,
+        child: AnimatedSize(
+          curve: Curves.easeInOutSine,
+          duration: const Duration(seconds: 1),
+          child: Container(
+            width: _size,
+            height: _size,
+            child: FittedBox(
+              child: FloatingActionButton(
+                mini: true,
+                onPressed: () {
+                  if (_taskController.text.isEmpty ||
+                      _noteController.text.isEmpty) {
+                    null;
+                  } else {
+                    _task = _taskController.text;
+                    print('$_task');
+                    _taskController.clear();
+                    _note = _noteController.text;
+                    print('$_note');
+                    _noteController.clear();
+                  }
+                },
+                child: Icon(Icons.add),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
