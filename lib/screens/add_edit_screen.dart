@@ -1,4 +1,5 @@
 import 'package:campnotes/data/models/todo.dart';
+import 'package:campnotes/helpers/layout_padding.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
@@ -26,23 +27,25 @@ class _AddEditScreenState extends State<AddEditScreen> {
   TextEditingController _noteController = TextEditingController();
   String _task;
   String _note;
+  double padding;
+  CustomPadding temp;
 
   bool get isEditing => widget.isEditing;
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    double deviceWidth = MediaQuery.of(context).size.shortestSide;
+    padding = temp.getPadding(10, deviceWidth);
     return Scaffold(
       appBar: AppBar(title: Text('Add Todo')),
       body: Center(
         child: ListView(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(padding),
           children: <Widget>[
             TextField(
               controller: _taskController,
               decoration: InputDecoration(
                 hintText: ('What needs to be done?'),
-                //hintStyle: textTheme.headline5,
               ),
               style: TextStyle(
                 color: Colors.grey,
@@ -53,7 +56,6 @@ class _AddEditScreenState extends State<AddEditScreen> {
               controller: _noteController,
               decoration: InputDecoration(
                 hintText: 'Additional notes...',
-                // hintStyle: textTheme.subtitle1,
               ),
               style: TextStyle(
                 color: Colors.grey,
