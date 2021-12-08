@@ -1,11 +1,7 @@
-import 'package:campnotes/screens/authorization_screen.dart';
-import 'package:campnotes/screens/details_screen.dart';
-import 'package:campnotes/screens/registration_screen.dart';
-import 'package:campnotes/screens/app_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'data/models/todo.dart';
-import 'screens/home_screen.dart';
+import 'screens/screens.dart';
 
 class RouteGenerator {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -36,6 +32,11 @@ class RouteGenerator {
       case App.detailsScreenRoute:
         return MaterialPageRoute(
           builder: (_) => App(),
+        );
+
+      case AddEditScreen.detailsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => AddEditScreen(),
         );
 
       case Registration.detailsScreenRoute:

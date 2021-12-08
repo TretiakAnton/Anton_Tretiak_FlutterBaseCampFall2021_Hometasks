@@ -1,6 +1,7 @@
 import 'package:campnotes/widgets/auth_firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 import '../main.dart';
 import '../widgets/custom_widgets/bottom_navigation.dart';
@@ -76,6 +77,13 @@ class _AppState extends State<App> {
               }
             });
           },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed('addEditScreen');
+          },
+          child: Icon(Icons.add),
+          tooltip: 'Add todo',
         ),
       ),
     );

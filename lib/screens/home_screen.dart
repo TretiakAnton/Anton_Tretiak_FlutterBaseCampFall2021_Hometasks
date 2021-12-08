@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
               Tab(text: 'Leisure', icon: Icon(Icons.airplanemode_active)),
             ],
           ),
-          title: Text(FlutterBlocLocalizations.of(context).appTitle),
+          //title: Text(FlutterBlocLocalizations.of(context).appTitle),
           actions: [
             FilterButton(visible: activeTab == AppTab.todos),
             ExtraActions(),
@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
           },
           child: Icon(Icons.add),
-          tooltip: ArchSampleLocalizations.of(context).addTodo,
+          //tooltip: ArchSampleLocalizations.of(context).addTodo,
         ),
         bottomNavigationBar: TabSelector(
           activeTab: activeTab,

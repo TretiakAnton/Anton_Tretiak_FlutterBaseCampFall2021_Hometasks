@@ -7,14 +7,15 @@ import 'package:todos_app_core/todos_app_core.dart';
 typedef OnSaveCallback = Function(String task, String note);
 
 class AddEditScreen extends StatefulWidget {
-  final bool isEditing;
-  final OnSaveCallback onSave;
+  static const String detailsScreenRoute = 'addEditScreen';
+  //final bool isEditing;
+  //final OnSaveCallback onSave;
   final Todo todo;
 
   AddEditScreen({
     Key key,
-    @required this.onSave,
-    @required this.isEditing,
+    //@required this.onSave,
+    //@required this.isEditing,
     this.todo,
   }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
@@ -28,13 +29,13 @@ class _AddEditScreenState extends State<AddEditScreen> {
   String _task;
   String _note;
   double padding;
-  CustomPadding temp;
+  final CustomPadding temp = new CustomPadding();
 
-  bool get isEditing => widget.isEditing;
+  // bool get isEditing => widget.isEditing;
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.shortestSide;
+    int deviceWidth = MediaQuery.of(context).size.shortestSide.toInt();
     padding = temp.getPadding(10, deviceWidth);
     return Scaffold(
       appBar: AppBar(title: Text('Add Todo')),
